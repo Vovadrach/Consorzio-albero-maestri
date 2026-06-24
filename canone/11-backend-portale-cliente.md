@@ -67,7 +67,7 @@ Tutto il resto (test inclusi, via Postgres locale in Docker) lo fa l'agente.
 | **E1** | Auth operatore + emissione/validazione magic-link cliente. | ✅ fatto |
 | **E2** | API dati per collezione + `HttpRepository` (server = verità), cutover configurabile. | ✅ fatto |
 | **E3** | Vista cliente `/c/:token` (read-only, settimana, importo, «segna pagato»). | ✅ fatto |
-| **E4** | Riconciliazione segnalazioni + cutover finale + istruzioni env Vercel. | ⏳ |
+| **E4** | Riconciliazione segnalazioni + pannello operatore + cutover. | ✅ fatto |
 
 ## 5. Cosa serve dall'utente (riepilogo)
 
@@ -75,3 +75,17 @@ Tutto il resto (test inclusi, via Postgres locale in Docker) lo fa l'agente.
 2. Su Vercel → Project → Settings → Environment Variables: incollare `DATABASE_URL`,
    `OPERATOR_SECRET`, `TOKEN_SECRET` (gli ultimi due forniti dall'agente).
 3. Nient'altro: migrazioni, deploy e test li esegue l'agente.
+
+## 6. Procedura di cutover (quando il DB è pronto)
+
+Tutto il codice è pronto e l'app resta local-first finché non si attiva. Quando l'utente
+ha fornito `DATABASE_URL` (env Vercel) e l'agente ha eseguito `npm run db:migrate`:
+
+1. In **Impostazioni → Backend · portale cliente**: incollare il segreto operatore
+   (= `OPERATOR_SECRET`), lasciare URL vuoto (stesso dominio).
+2. **Migra i dati locali sul server** (carica lo snapshot Dexie attuale).
+3. Spuntare **cutover** (server = verità) → **Salva** → ricaricare l'app.
+4. Per ogni cliente: **Genera link** e condividere l'URL `/c/<token>`.
+5. I «Ho pagato» dei clienti compaiono in **Pagamenti segnalati** → **Accetta e incassa**.
+
+Reversibile: togliere la spunta cutover riporta l'app a local-first (Dexie).

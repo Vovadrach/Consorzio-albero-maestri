@@ -2,6 +2,7 @@ import { ArrowLeft, Download, RotateCcw, Trash2, Undo2, Upload, UserRound, Wareh
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Intestazione } from "@/components/Intestazione";
+import { BackendPanel } from "@/components/BackendPanel";
 import { Button, Card, Conferma, Field } from "@/components/ui";
 import { getWorkspaceId, isSyncConfigured, setWorkspaceId } from "@/db/sync-config";
 import { esportaJSON, importaJSON } from "@/lib/backup";
@@ -160,6 +161,8 @@ export function Impostazioni() {
           Collega e sincronizza
         </Button>
       </Card>
+
+      <BackendPanel />
 
       <Card tono="alta" className="flex flex-col gap-3 p-4">
         <h2 className="font-display text-lg text-bianco">Cestino</h2>

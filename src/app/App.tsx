@@ -15,6 +15,7 @@ import { Kitchen } from "@/pages/Kitchen";
 import { NuovoCliente } from "@/pages/NuovoCliente";
 import { NuovoOperaio } from "@/pages/NuovoOperaio";
 import { OperaioScheda } from "@/pages/OperaioScheda";
+import { PortaleCliente } from "@/pages/PortaleCliente";
 import { Soldi } from "@/pages/Soldi";
 import { avviaSync } from "@/db/sync";
 import { useStore } from "@/store/store";
@@ -27,13 +28,28 @@ function Splash() {
   );
 }
 
+// Il portale cliente (/c/:token) è un'esperienza isolata: niente bootstrap operatore.
+const isPortaleCliente = typeof window !== "undefined" && window.location.pathname.startsWith("/c/");
+
 export function App() {
   const carica = useStore((s) => s.carica);
   const pronto = useStore((s) => s.pronto);
 
   useEffect(() => {
-    void carica().then(() => avviaSync());
+    if (!isPortaleCliente) void carica().then(() => avviaSync());
   }, [carica]);
+
+  if (isPortaleCliente) {
+    return (
+      <MotionConfig reducedMotion="user">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/c/:token" element={<PortaleCliente />} />
+          </Routes>
+        </BrowserRouter>
+      </MotionConfig>
+    );
+  }
 
   return (
     <MotionConfig reducedMotion="user">

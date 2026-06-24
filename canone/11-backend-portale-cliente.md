@@ -66,7 +66,7 @@ Tutto il resto (test inclusi, via Postgres locale in Docker) lo fa l'agente.
 | **E0** | Scaffolding: `/api`, `server/db`, schema JSONB, migrate, `/api/health`, tsconfig server, `.env.example`. Testato su Postgres locale (Docker). | ✅ fatto |
 | **E1** | Auth operatore + emissione/validazione magic-link cliente. | ✅ fatto |
 | **E2** | API dati per collezione + `HttpRepository` (server = verità), cutover configurabile. | ✅ fatto |
-| **E3** | Vista cliente `/c/:token` (read-only, settimana, importo, «segna pagato»). | ⏳ |
+| **E3** | Vista cliente `/c/:token` (read-only, settimana, importo, «segna pagato»). | ✅ fatto |
 | **E4** | Riconciliazione segnalazioni + cutover finale + istruzioni env Vercel. | ⏳ |
 
 ## 5. Cosa serve dall'utente (riepilogo)

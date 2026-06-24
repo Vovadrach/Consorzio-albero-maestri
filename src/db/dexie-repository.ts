@@ -1,5 +1,7 @@
+import { backendAttivo } from "@/lib/backend";
 import { adessoISO } from "@/lib/format";
 import type { CollezioneKey, Dati } from "@/lib/types";
+import { HttpRepository } from "./http-repository";
 import type { Repository } from "./repository";
 import { db } from "./schema";
 
@@ -72,4 +74,6 @@ export class DexieRepository implements Repository {
   }
 }
 
-export const repository: Repository = new DexieRepository();
+// Selezione dell'implementazione: HTTP (server = verità) solo se il backend è attivato
+// in Impostazioni; altrimenti local-first con Dexie. Nessuno schermo cambia (canone 02 §1.4).
+export const repository: Repository = backendAttivo() ? new HttpRepository() : new DexieRepository();

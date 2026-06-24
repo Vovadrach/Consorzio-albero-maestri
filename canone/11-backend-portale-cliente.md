@@ -1,4 +1,7 @@
-# 10 — Backend proprietario + portale cliente (Blocco E)
+# 11 — Backend proprietario + portale cliente (Blocco E)
+
+> Nota: rinominato 10→11 perché `canone/10-prd-3d-gemini-garage.md` (lavoro parallelo
+> «Garage 3D») occupa già il numero 10.
 
 > Estende il canone **oltre la v1** (che era single-user, local-first, senza server).
 > Documenta l'architettura del backend scritto **da noi** (niente Supabase) e del portale
@@ -61,7 +64,7 @@ Tutto il resto (test inclusi, via Postgres locale in Docker) lo fa l'agente.
 | Fase | Contenuto | Stato |
 |---|---|---|
 | **E0** | Scaffolding: `/api`, `server/db`, schema JSONB, migrate, `/api/health`, tsconfig server, `.env.example`. Testato su Postgres locale (Docker). | ✅ fatto |
-| **E1** | Auth operatore + emissione/validazione magic-link cliente. | ⏳ |
+| **E1** | Auth operatore + emissione/validazione magic-link cliente. | ✅ fatto |
 | **E2** | API dati per collezione + `HttpRepository` (server = verità), cutover configurabile. | ⏳ |
 | **E3** | Vista cliente `/c/:token` (read-only, settimana, importo, «segna pagato»). | ⏳ |
 | **E4** | Riconciliazione segnalazioni + cutover finale + istruzioni env Vercel. | ⏳ |
